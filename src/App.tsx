@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import faker from 'faker';
 import VirtualList from './components/VirtualList';
 
 export interface ListItemProps {
@@ -12,10 +13,10 @@ const App = () => {
   useEffect(() => {
     const getList = () => {
       const res: ListArray = [];
-      for (let i = 0; i < 10000; i++) {
+      for (let i = 0; i < 1000; i++) {
         res.push({
           index: i,
-          text: i + ''
+          text: faker.lorem.sentences()
         })
       }
       setList(res);
@@ -26,6 +27,7 @@ const App = () => {
     <div className="App">
       <VirtualList
         data={list}
+        estimatedItemSize={100}
       />
     </div>
   );
