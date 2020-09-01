@@ -1,0 +1,9 @@
+.vir-list-item {
+  padding: 5px;
+  border-bottom: 1px solid #cccccc;
+}
+
+.line-count {
+  color: red;
+  padding-right: 10px;
+}

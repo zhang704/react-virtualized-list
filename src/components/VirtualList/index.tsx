@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo, useRef, ReactElement } from 'react';
 import { ListItemProps } from '../../App';
 import './index.css';
 
@@ -6,6 +6,7 @@ interface VirtualListProps {
   data: ListItemProps[];
   estimatedItemSize: number;
   bufferScale?: number;
+  renderItem: (itemData: ListItemProps) => ReactElement
 }
 interface PositionsPorps {
   index: number;
@@ -16,7 +17,7 @@ interface PositionsPorps {
 type PositionsListPorps = PositionsPorps[];
 
 const VirtualList: React.FC<VirtualListProps> = (props) => {
-  const { data, estimatedItemSize, bufferScale } = props;
+  const { data, estimatedItemSize, bufferScale, renderItem } = props;
   // 可显示的列表数量
   const getVisibleCount = (): number => {
     const screenH = document.body.clientHeight;
@@ -143,7 +144,7 @@ const VirtualList: React.FC<VirtualListProps> = (props) => {
             key={v.index}
             id={`_${v.index}`}
             className="list-item"
-          >{v.text}</div>
+          >{renderItem(v)}</div>
         ))}
       </div>
     </div>

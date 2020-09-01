@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import faker from 'faker';
 import VirtualList from './components/VirtualList';
+import './style.css';
 
 export interface ListItemProps {
   index: number;
@@ -28,6 +29,14 @@ const App = () => {
       <VirtualList
         data={list}
         estimatedItemSize={100}
+        renderItem={data => {
+          return (
+            <div className="vir-list-item">
+              <span className="line-count">这是第{data.index}行</span>
+              <span>{data.text}</span>
+            </div>
+          )
+        }}
       />
     </div>
   );
