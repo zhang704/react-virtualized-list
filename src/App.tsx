@@ -3,17 +3,11 @@ import faker from 'faker';
 import VirtualList from './components/VirtualList';
 import './style.css';
 
-export interface ListItemProps {
-  index: number;
-  text: string;
-}
-
-type ListArray = ListItemProps[];
 const App = () => {
-  const [list, setList] = useState<ListArray>([]);
+  const [list, setList] = useState<virtualListProps.ListArrayProps>([]);
   useEffect(() => {
     const getList = () => {
-      const res: ListArray = [];
+      const res: virtualListProps.ListArrayProps = [];
       for (let i = 0; i < 1000; i++) {
         res.push({
           index: i,

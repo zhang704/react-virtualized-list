@@ -1,22 +1,9 @@
-import React, { useState, useMemo, useRef, ReactElement } from 'react';
-import { ListItemProps } from '../../App';
+import React, { useState, useMemo, useRef } from 'react';
 import './index.css';
 
-interface VirtualListProps {
-  data: ListItemProps[];
-  estimatedItemSize: number;
-  bufferScale?: number;
-  renderItem: (itemData: ListItemProps) => ReactElement
-}
-interface PositionsPorps {
-  index: number;
-  top: number;
-  bottom: number;
-  height: number;
-}
-type PositionsListPorps = PositionsPorps[];
+type PositionsListPorps = virtualListProps.PositionsPorps[];
 
-const VirtualList: React.FC<VirtualListProps> = (props) => {
+const VirtualList: React.FC<virtualListProps.VirtualListProps> = (props) => {
   const { data, estimatedItemSize, bufferScale, renderItem } = props;
   // 可显示的列表数量
   const getVisibleCount = (): number => {
@@ -90,9 +77,9 @@ const VirtualList: React.FC<VirtualListProps> = (props) => {
     initPositions();
   }, [data, estimatedItemSize]);
   // 计算可视区上方渲染条数
-  const aboveCount = () => Math.min(start, (bufferScale as number) * getVisibleCount())
+  const aboveCount = () => Math.min(start, Math.floor((bufferScale as number) * getVisibleCount()))
   // 计算可视区下方渲染条数
-  const belowCount = () => Math.min(data.length - end, (bufferScale as number) * getVisibleCount())
+  const belowCount = () => Math.min(data.length - end, Math.ceil((bufferScale as number) * getVisibleCount()))
   // 计算列表的总高度
   const LIST_HEIGHT = useMemo(() => positions.reduce((totalHeight, node) => {
     return totalHeight + node.height;
